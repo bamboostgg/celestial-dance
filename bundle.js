@@ -53,8 +53,6 @@
 
 	'use strict';
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	__webpack_require__(2);
 
 	__webpack_require__(5);
@@ -75,57 +73,38 @@
 
 	var _Dancer2 = _interopRequireDefault(_Dancer);
 
-	var _dancerData = __webpack_require__(465);
+	var _dancerData = __webpack_require__(466);
 
 	var _dancerData2 = _interopRequireDefault(_dancerData);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	__webpack_require__(468);
+	__webpack_require__(469);
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	__webpack_require__(466);
-	__webpack_require__(467);
-
-	var SpaceScene = function (_React$Component) {
-	  _inherits(SpaceScene, _React$Component);
-
-	  function SpaceScene(props) {
-	    _classCallCheck(this, SpaceScene);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(SpaceScene).call(this, props));
-	  }
-
-	  _createClass(SpaceScene, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        _aframeReact.Scene,
-	        null,
-	        _react2.default.createElement(
-	          'a-assets',
-	          null,
-	          _react2.default.createElement('img', { id: 'outer-space', src: '../assets/equi-sky.png' }),
-	          _react2.default.createElement('img', { id: 'cow', src: '../assets/cow_texture.png' }),
-	          _react2.default.createElement('img', { id: 'earth-img', src: '../assets/earth.jpg' }),
-	          _react2.default.createElement('img', { id: 'mars-img', src: '../assets/mars.png' })
-	        ),
-	        _dancerData2.default.map(function (dancer, index) {
-	          return _react2.default.createElement(_Dancer2.default, { key: index, mass: dancer.mass, position: dancer.position,
-	            color: dancer.color, velocity: dancer.velocity
-	          });
-	        }),
-	        _react2.default.createElement('a-camera', { id: 'player', position: '0 1.8 0' }),
-	        _react2.default.createElement('a-sky', { src: '#outer-space' })
-	      );
-	    }
-	  }]);
-
-	  return SpaceScene;
-	}(_react2.default.Component);
+	var SpaceScene = function SpaceScene() {
+	  return _react2.default.createElement(
+	    _aframeReact.Scene,
+	    null,
+	    _react2.default.createElement(
+	      'a-assets',
+	      null,
+	      _react2.default.createElement('img', { id: 'outer-space', src: '../assets/equi-sky.png' }),
+	      _react2.default.createElement('img', { id: 'cow', src: '../assets/cow_texture.png' }),
+	      _react2.default.createElement('img', { id: 'earth-img', src: '../assets/earth.jpg' }),
+	      _react2.default.createElement('img', { id: 'mars-img', src: '../assets/mars.png' })
+	    ),
+	    _dancerData2.default.map(function (dancer, index) {
+	      return _react2.default.createElement(_Dancer2.default, { key: index, mass: dancer.mass, position: dancer.position,
+	        color: dancer.color, velocity: dancer.velocity
+	      });
+	    }),
+	    _react2.default.createElement('a-camera', { 'wasd-controls': 'fly: true',
+	      id: 'player', position: '0 1.8 0' }),
+	    _react2.default.createElement('a-sky', { src: '#outer-space' })
+	  );
+	};
 
 	_reactDom2.default.render(_react2.default.createElement(SpaceScene, null), document.querySelector('.scene-container'));
 
@@ -88878,13 +88857,14 @@
 	};
 
 	var merge = function merge(body1, body2) {
-	  // vf = (m1v1 + m2v2) / (m1+m2)
-	  // debugger;
-	  body1.velocity.multiplyScalar(body1.mass).add(body2.velocity.multiplyScalar(body2.mass)).multiplyScalar(body1.mass + body2.mass);
 	  // mf = m1+m2
-	  body1.mass = body1.mass + body2.mass;
+	  var finalMass = body1.mass + body2.mass;
+	  // vf = (m1v1 + m2v2) / (m1+m2)
+	  body1.velocity = body1.velocity.multiplyScalar(body1.mass).add(body2.velocity.multiplyScalar(body2.mass)).multiplyScalar(1 / finalMass);
+
+	  body1.mass = finalMass;
 	  // rf = massToRadius(mf)
-	  body1.radius = massToRadius(body1.mass);
+	  body1.radius = massToRadius(finalMass);
 	  // colorF? = get average (color1, color2) (#123 + #777 = #455)
 	  // colorF? = get max (color1, color2) (#12B + #777 = #77B),
 	  // remove all forces associated with body2
@@ -88892,7 +88872,7 @@
 	    return force.body1 !== body2 && force.body2 !== body2;
 	  });
 	  // delete body2
-	  // body2.parentNode.remove(body2);
+	  body2.parentNode.remove(body2);
 	  // move?
 	};
 
@@ -88914,8 +88894,6 @@
 
 	'use strict';
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	__webpack_require__(2);
 
 	var _aframeReact = __webpack_require__(301);
@@ -88934,39 +88912,13 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var backwards = new THREE.Vector3(0, 0, 0.01);
-
-	var Dancer = function (_React$Component) {
-	  _inherits(Dancer, _React$Component);
-
-	  function Dancer(props) {
-	    _classCallCheck(this, Dancer);
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Dancer).call(this, props));
-
-	    _this.mass = props.mass || (0, _Helpers.rand)(2, 1000);
-	    return _this;
-	  }
-
-	  _createClass(Dancer, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement('a-sphere', { color: this.props.color, radius: (0, _Helpers.massToRadius)(this.mass),
-	        'class': 'dancer', mass: this.mass, step: true,
-	        velocity: this.props.velocity.join(' '),
-	        position: this.props.position.join(' ')
-	      });
-	    }
-	  }]);
-
-	  return Dancer;
-	}(_react2.default.Component);
+	var Dancer = function Dancer(props) {
+	  return _react2.default.createElement('a-sphere', { color: props.color, radius: (0, _Helpers.massToRadius)(props.mass),
+	    'class': 'dancer', mass: props.mass, step: true,
+	    velocity: props.velocity.join(' '),
+	    position: props.position.join(' ')
+	  });
+	};
 
 	module.exports = Dancer;
 
@@ -89023,22 +88975,22 @@
 	  value: true
 	});
 	var GRAVITY = 3e-4; // N * m^3 / kg^3
-	var PLANET_SPRING = 1e2; // N / m
+	var PLANET_SPRING = 1e0; // N / m
 	var MIN_DISTANCE = 2e-0; // m
-	var TIME_SCALE = 1e-5; // 1/s
+	var TIME_SCALE = 8e-4; // 1/s
+	var ORBITAL_SPEED = 1.1;
 
 	exports.GRAVITY = GRAVITY;
 	exports.PLANET_SPRING = PLANET_SPRING;
 	exports.MIN_DISTANCE = MIN_DISTANCE;
 	exports.TIME_SCALE = TIME_SCALE;
+	exports.ORBITAL_SPEED = ORBITAL_SPEED;
 
 /***/ },
 /* 464 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	__webpack_require__(2);
 
@@ -89054,53 +89006,11 @@
 
 	var _Constants = __webpack_require__(463);
 
+	var _Force = __webpack_require__(465);
+
+	var _Force2 = _interopRequireDefault(_Force);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var Force = function () {
-	  function Force(body1, body2) {
-	    _classCallCheck(this, Force);
-
-	    this.body1 = body1; // super(body1)? super(body1, body2)?
-	    this.body2 = body2;
-	    this.vector = new THREE.Vector3();
-	  }
-
-	  _createClass(Force, [{
-	    key: 'update',
-	    value: function update() {
-	      var displacement = (0, _Helpers.getR)(this.body1, this.body2);
-	      var displacement2 = (0, _Helpers.getR)(this.body1, this.body2);
-	      var distance = Math.max(displacement.length(), _Constants.MIN_DISTANCE);
-	      // F_g = G * m1 * m2 * Rvector / r^3
-	      if (this.distance < _Constants.MIN_DISTANCE) {
-	        (0, _Helpers.merge)(this.body1, this.body2);
-	      } else if (distance < this.body1.radius + this.body2.radius) {
-	        // bounce wit it
-	        // this.vector.add(
-	        //   displacement2.multiplyScalar(
-	        //     PLANET_SPRING * (1 - (this.body1.radius + this.body2.radius) / distance)
-	        //   )
-	        // );
-	      } else {
-	          this.vector.copy(displacement.multiplyScalar(_Constants.GRAVITY * this.body1.mass * this.body2.mass / Math.pow(distance, 3)));
-	        }
-	      return this;
-	    }
-	  }, {
-	    key: 'apply',
-	    value: function apply(dt) {
-	      var accel1 = new THREE.Vector3().copy(this.vector).multiplyScalar(dt / this.body1.mass);
-	      var accel2 = new THREE.Vector3().copy(this.vector).multiplyScalar(-1 * dt / this.body2.mass);
-	      this.body1.velocity.add(accel1);
-	      this.body2.velocity.add(accel2);
-	      return this;
-	    }
-	  }]);
-
-	  return Force;
-	}();
 
 	var move = function move(dancer, dt) {
 	  var velocity = new THREE.Vector3().copy(dancer.velocity);
@@ -89125,13 +89035,13 @@
 	    window.forces = [];
 	    for (var i = 0; i < dancers.length; i++) {
 	      for (var j = i + 1; j < dancers.length; j++) {
-	        window.forces.push(new Force(dancers[i], dancers[j]));
+	        window.forces.push(new _Force2.default(dancers[i], dancers[j]));
 	      }
 	    }
 	    // window.forces = this.data.forces;
 	  },
 
-	  tick: function tick(dt) {
+	  tick: function tick(t, dt) {
 	    dt = dt * _Constants.TIME_SCALE;
 	    for (var i = 0; i < window.forces.length; i++) {
 	      window.forces[i].update().apply(dt);
@@ -89151,58 +89061,139 @@
 
 	'use strict';
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	__webpack_require__(2);
+
 	var _Helpers = __webpack_require__(460);
 
-	var baseSpeed = 5e0;
+	var _Constants = __webpack_require__(463);
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Force = function () {
+	  function Force(body1, body2) {
+	    _classCallCheck(this, Force);
+
+	    this.body1 = body1; // super(body1)? super(body1, body2)?
+	    this.body2 = body2;
+	    this.vector = new THREE.Vector3();
+	  }
+
+	  _createClass(Force, [{
+	    key: 'update',
+	    value: function update() {
+	      var displacement = (0, _Helpers.getR)(this.body1, this.body2);
+	      var displacement2 = (0, _Helpers.getR)(this.body1, this.body2);
+	      var distance = Math.max(displacement.length(), _Constants.MIN_DISTANCE);
+	      // F_g = G * m1 * m2 * Rvector / r^3
+	      if (this.distance < _Constants.MIN_DISTANCE) {} else if (distance < this.body1.radius + this.body2.radius) {
+	        // merge(this.body1, this.body2);
+	        // bounce wit it
+	        this.vector.add(displacement2.multiplyScalar(_Constants.PLANET_SPRING * (1 - (this.body1.radius + this.body2.radius) / distance)));
+	      } else {
+	        this.vector.copy(displacement.multiplyScalar(_Constants.GRAVITY * this.body1.mass * this.body2.mass / Math.pow(distance, 3)));
+	      }
+	      return this;
+	    }
+	  }, {
+	    key: 'apply',
+	    value: function apply(dt) {
+	      var accel1 = new THREE.Vector3().copy(this.vector).multiplyScalar(dt / this.body1.mass);
+	      var accel2 = new THREE.Vector3().copy(this.vector).multiplyScalar(-1 * dt / this.body2.mass);
+	      this.body1.velocity.add(accel1);
+	      this.body2.velocity.add(accel2);
+	      return this;
+	    }
+	  }]);
+
+	  return Force;
+	}();
+
+	module.exports = Force;
+
+/***/ },
+/* 466 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _Helpers = __webpack_require__(460);
+
+	var _Constants = __webpack_require__(463);
+
+	var _MakeDancers = __webpack_require__(467);
+
+	// Random orbitals
+	var sun = (0, _MakeDancers.makeDancer)(10000, [0, 0, -50], [0, 0, 0], '#FDB813');
+	var dancerData = [sun, (0, _MakeDancers.makeOrbitalDancer)(sun, 'x', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'y', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'z', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'x', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'y', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'z', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'x', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'y', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'z', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'x', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'y', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'z', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'x', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'y', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'z', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'x', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'y', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'z', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'x', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'y', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'z', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'x', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'y', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'z', -1)];
+
+	module.exports = dancerData;
+
+/***/ },
+/* 467 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _Helpers = __webpack_require__(460);
+
+	var _Constants = __webpack_require__(463);
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var baseSpeed = 11e-1;
+
 	var makeDancer = function makeDancer(mass, position, velocity) {
 	  var color = arguments.length <= 3 || arguments[3] === undefined ? "#22A" : arguments[3];
 	  return {
 	    mass: mass, position: position, velocity: velocity, color: color
 	  };
 	};
+
 	var makeRandDancer = function makeRandDancer() {
-	  return makeDancer((0, _Helpers.rand)(100, 100000), [(0, _Helpers.rand)(-10, 10), (0, _Helpers.rand)(-10, 10), (0, _Helpers.rand)(-50, -20)],
-	  // [rand(-baseSpeed, baseSpeed), rand(-baseSpeed, baseSpeed), rand(-baseSpeed, baseSpeed)],
-	  [(0, _Helpers.rand)(-baseSpeed, baseSpeed), (0, _Helpers.rand)(-baseSpeed, baseSpeed), (0, _Helpers.rand)(-baseSpeed, baseSpeed)], (0, _Helpers.randColor)());
+	  return makeDancer((0, _Helpers.rand)(100, 1000), [(0, _Helpers.rand)(-10, 10), (0, _Helpers.rand)(-10, 10), (0, _Helpers.rand)(-50, -30)], [(0, _Helpers.rand)(-baseSpeed, baseSpeed), (0, _Helpers.rand)(-baseSpeed, baseSpeed), (0, _Helpers.rand)(-baseSpeed, baseSpeed)], (0, _Helpers.randColor)());
 	};
-	var orbitalSpeed = 1.1;
-	var dancerData = [
-	// makeDancer(100000, 0, 2, -40),
-	// makeDancer(1000, 2, 1.8, -10),
-	// makeDancer(100, -2, 1.8, -10),
-	// makeDancer(100, 3, 2, -8),
-	// makeDancer(100, 2, 0, -5, "../assets/cow_texture.png"),
-	// makeDancer(100, -2, 0, -5),
-	makeDancer(100000, [0, 2, -40], [0, 0, 0], '#FFF'), makeDancer(1000, [20, 2, -40], [0, orbitalSpeed, 0], (0, _Helpers.randColor)()), makeDancer(1000, [0, 22, -40], [0, 0, orbitalSpeed], (0, _Helpers.randColor)()), makeDancer(1000, [-20, 2, -40], [0, -orbitalSpeed, 0], (0, _Helpers.randColor)()), makeDancer(1000, [0, -22, -40], [0, 0, -orbitalSpeed], (0, _Helpers.randColor)())];
 
-	// dancerData = [
-	//   makeDancer(
-	//     10000, [5, 2, -10], [0, 0, 0], '#F00'
-	//   ),
-	//   makeDancer(
-	//     1000, [-5, 2, -10], [0, 0, 0], '#00F'
-	//   ),
-	// ]
+	var planeToPosition = { x: 1, y: 2, z: 0 };
+	var planeToVelocity = { x: 2, y: 0, z: 1 };
+	var makeOrbitalDancer = function makeOrbitalDancer(dancer, plane, sign) {
+	  var mass = (0, _Helpers.rand)(0, dancer.mass / 100);
+	  var orbitRadius = (0, _Helpers.rand)(0, dancer.mass / 100);
+	  var speed = sign * Math.sqrt(_Constants.GRAVITY * (mass + dancer.mass) / orbitRadius);
+	  var position = dancer.position.slice();
+	  var velocity = [0, 0, 0];
+	  position[planeToPosition[plane]] += sign * orbitRadius;
+	  velocity[planeToVelocity[plane]] = speed;
+	  return makeDancer(mass, position, velocity, (0, _Helpers.randColor)());
+	};
 
-	// makeDancer(
-	//   1000, [2, 0, -10], [0, baseSpeed, 0], '#F00'
-	// ),
-	// makeDancer(
-	//   1000, [-2, 0, -10], [0, -baseSpeed, 0], '#00F'
-	// ),
-	// makeRandDancer(),
-	// makeRandDancer(),
-	// makeRandDancer(),
-	// makeRandDancer(),
-	// makeRandDancer(),
-	// makeRandDancer(),
-	// makeRandDancer(),
-	// makeRandDancer(),
-	// makeRandDancer(),
-	module.exports = dancerData;
+	var DancerData = function DancerData(mass, position, velocity, color) {
+	  _classCallCheck(this, DancerData);
+
+	  this.mass = mass;
+	  this.position = position;
+	  this.velocity = velocity;
+	  this.color = color;
+	};
+
+	var preventOverlappingDancers = function preventOverlappingDancers(dancersArr) {
+	  for (var i = 0; i < dancersArr.length; i++) {
+	    for (var j = 0; j < dancersArr.length; j++) {
+	      if (i !== j && overlapping(dancersArr[i], dancersArr[j])) {
+	        dancersArr[j].reset();
+	        j--;
+	      }
+	    }
+	  }
+	};
+
+	module.exports = {
+	  makeDancer: makeDancer, makeRandDancer: makeRandDancer, makeOrbitalDancer: makeOrbitalDancer
+	};
 
 /***/ },
-/* 466 */
+/* 468 */
 /***/ function(module, exports) {
 
 	/**
@@ -89441,7 +89432,7 @@
 
 
 /***/ },
-/* 467 */
+/* 469 */
 /***/ function(module, exports) {
 
 	var debug = AFRAME.utils.debug;
