@@ -90,10 +90,7 @@
 	    _react2.default.createElement(
 	      'a-assets',
 	      null,
-	      _react2.default.createElement('img', { id: 'outer-space', src: '../assets/equi-sky.png' }),
-	      _react2.default.createElement('img', { id: 'cow', src: '../assets/cow_texture.png' }),
-	      _react2.default.createElement('img', { id: 'earth-img', src: '../assets/earth.jpg' }),
-	      _react2.default.createElement('img', { id: 'mars-img', src: '../assets/mars.png' })
+	      _react2.default.createElement('img', { id: 'outer-space', crossOrigin: true, src: 'http://i.imgur.com/gNIwweI.jpg' })
 	    ),
 	    _dancerData2.default.map(function (dancer, index) {
 	      return _react2.default.createElement(_Dancer2.default, { key: index, mass: dancer.mass, position: dancer.position,
