@@ -2,8 +2,8 @@ import { rand, randColor } from './Helpers';
 import { GRAVITY } from './Constants';
 const baseSpeed = 11e-1;
 
-const makeDancer = (mass, position, velocity, color = "#22A") => ({
-  mass, position, velocity, color
+const makeDancer = (mass, position, velocity, light, material) => ({
+  mass, position, velocity, light, material
 });
 
 const makeRandDancer = () => {
@@ -11,7 +11,9 @@ const makeRandDancer = () => {
     rand(100, 1000),
     [rand(-10, 10), rand(-10, 10), rand(-50, -30)],
     [rand(-baseSpeed, baseSpeed), rand(-baseSpeed, baseSpeed), rand(-baseSpeed, baseSpeed)],
-    randColor()
+    randColor(),
+    "",
+    "color: " + randColor()
   );
 }
 
@@ -25,7 +27,7 @@ const makeOrbitalDancer = (dancer, plane, sign) => {
   const velocity = [0, 0, 0];
   position[planeToPosition[plane]] += sign * orbitRadius;
   velocity[planeToVelocity[plane]] = speed;
-  return makeDancer(mass, position, velocity, randColor());
+  return makeDancer(mass, position, velocity, null, "color: "+randColor()+"; metalness: 0.4");
 }
 
 class DancerData {

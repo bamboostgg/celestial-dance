@@ -87,25 +87,14 @@
 	      _react2.default.createElement('img', { id: 'outer-space', crossOrigin: true, src: 'http://i.imgur.com/gNIwweI.jpg' })
 	    ),
 	    _dancerData2.default.map(function (dancer, index) {
-	      if (dancer.mass >= 1000) {
-	        console.log('sun?', dancer);
-	        dancer.material = "color: #FFF; shader: flat";
-	        dancer.light = "color: #DDDDFF; distance: 5000; intensity: 2; type: point";
-	        return _react2.default.createElement('a-sphere', { key: index, light: dancer.light, radius: (0, _Helpers.massToRadius)(dancer.mass),
-	          'class': 'dancer', mass: dancer.mass, step: true,
-	          velocity: dancer.velocity.join(' '),
-	          position: dancer.position.join(' '),
-	          material: dancer.material
-	        });
-	      }
 	      return _react2.default.createElement(_Dancer2.default, { key: index, mass: dancer.mass, position: dancer.position,
-	        velocity: dancer.velocity, color: dancer.color,
-	        material: 'metalness: 0.8'
+	        velocity: dancer.velocity,
+	        light: dancer.light, material: dancer.material
 	      });
 	    }),
 	    _react2.default.createElement('a-camera', { 'wasd-controls': 'fly: true', id: 'player', position: '0 1.8 0' }),
 	    _react2.default.createElement('a-sky', { src: '#outer-space', material: 'shader: flat' }),
-	    _react2.default.createElement('a-entity', { light: 'type: ambient; color: #111' })
+	    _react2.default.createElement('a-entity', { light: 'type: ambient; color: #555' })
 	  );
 	};
 
@@ -88449,10 +88438,13 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Dancer = function Dancer(props) {
-	  return _react2.default.createElement('a-sphere', { color: props.color, radius: (0, _Helpers.massToRadius)(props.mass),
+	  return _react2.default.createElement('a-sphere', { radius: (0, _Helpers.massToRadius)(props.mass),
 	    'class': 'dancer', mass: props.mass, step: true,
 	    velocity: props.velocity.join(' '),
-	    position: props.position.join(' ')
+	    position: props.position.join(' '),
+	    light: props.light,
+	    color: props.color,
+	    material: props.material
 	  });
 	};
 
@@ -89128,8 +89120,9 @@
 	var _MakeDancers = __webpack_require__(467);
 
 	// Random orbitals
-	var sun = (0, _MakeDancers.makeDancer)(10000, [0, 0, -50], [0, 0, 0], '#FDB813');
-	var dancerData = [sun, (0, _MakeDancers.makeOrbitalDancer)(sun, 'x', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'y', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'z', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'x', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'y', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'z', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'x', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'y', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'z', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'x', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'y', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'z', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'x', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'y', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'z', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'x', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'y', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'z', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'x', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'y', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'z', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'x', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'y', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'z', -1)];
+	var sun = (0, _MakeDancers.makeDancer)(10000, [0, 0, -50], [0, 0, 0], "color: #FFC823; distance: 5000; intensity: 2; type: point", "color: #FFC823; shader: flat; metalness: 0.8");
+
+	var dancerData = [sun, (0, _MakeDancers.makeOrbitalDancer)(sun, 'x', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'y', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'z', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'x', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'y', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'z', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'x', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'y', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'z', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'x', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'y', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'z', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'x', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'y', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'z', 1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'x', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'y', -1), (0, _MakeDancers.makeOrbitalDancer)(sun, 'z', -1)];
 
 	module.exports = dancerData;
 
@@ -89147,15 +89140,14 @@
 
 	var baseSpeed = 11e-1;
 
-	var makeDancer = function makeDancer(mass, position, velocity) {
-	  var color = arguments.length <= 3 || arguments[3] === undefined ? "#22A" : arguments[3];
+	var makeDancer = function makeDancer(mass, position, velocity, light, material) {
 	  return {
-	    mass: mass, position: position, velocity: velocity, color: color
+	    mass: mass, position: position, velocity: velocity, light: light, material: material
 	  };
 	};
 
 	var makeRandDancer = function makeRandDancer() {
-	  return makeDancer((0, _Helpers.rand)(100, 1000), [(0, _Helpers.rand)(-10, 10), (0, _Helpers.rand)(-10, 10), (0, _Helpers.rand)(-50, -30)], [(0, _Helpers.rand)(-baseSpeed, baseSpeed), (0, _Helpers.rand)(-baseSpeed, baseSpeed), (0, _Helpers.rand)(-baseSpeed, baseSpeed)], (0, _Helpers.randColor)());
+	  return makeDancer((0, _Helpers.rand)(100, 1000), [(0, _Helpers.rand)(-10, 10), (0, _Helpers.rand)(-10, 10), (0, _Helpers.rand)(-50, -30)], [(0, _Helpers.rand)(-baseSpeed, baseSpeed), (0, _Helpers.rand)(-baseSpeed, baseSpeed), (0, _Helpers.rand)(-baseSpeed, baseSpeed)], (0, _Helpers.randColor)(), "", "color: " + (0, _Helpers.randColor)());
 	};
 
 	var planeToPosition = { x: 1, y: 2, z: 0 };
@@ -89168,7 +89160,7 @@
 	  var velocity = [0, 0, 0];
 	  position[planeToPosition[plane]] += sign * orbitRadius;
 	  velocity[planeToVelocity[plane]] = speed;
-	  return makeDancer(mass, position, velocity, (0, _Helpers.randColor)());
+	  return makeDancer(mass, position, velocity, null, "color: " + (0, _Helpers.randColor)() + "; metalness: 0.4");
 	};
 
 	var DancerData = function DancerData(mass, position, velocity, color) {
