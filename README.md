@@ -1,3 +1,3 @@
-# Celestial Dance
+# O-SHI-WADDUP-DANCE
 
-A beautiful celestial body simulation built with A-Frame VR and React
+HERE COME DAT beautiful celestial body simulation built with A-Frame VR and React.

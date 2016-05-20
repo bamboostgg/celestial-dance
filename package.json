@@ -12,6 +12,7 @@
     "express": "^4.13.4",
     "file-loader": "^0.8.5",
     "html-webpack-plugin": "^2.16.1",
+    "nodemon": "^1.9.2",
     "react": "^0.14.3",
     "react-dom": "^0.14.3"
   },
@@ -23,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/elliotaplant/celestial-dance.git"
+    "url": "git+https://github.com/bamboostgg/o-shi-waddup.git"
   },
   "keywords": [
     "aframe",
@@ -32,7 +33,9 @@
     "gravity",
     "a-frame",
     "mozvr",
-    "webvr"
+    "webvr",
+    "datboi",
+    "waddup"
   ],
   "author": "Elliot Plant <elliotaplant@gmail.com>",
   "license": "MIT",
