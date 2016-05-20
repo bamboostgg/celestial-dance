@@ -1,12 +1,10 @@
 import 'aframe';
 import 'aframe-extras';
 import 'babel-polyfill';
-import React from 'react';
-import ReactDOM from 'react-dom';
-
+import React      from 'react';
+import ReactDOM   from 'react-dom';
 import SpaceScene from './components/SpaceScene';
-import Sidebar from './components/Sidebar';
-
+import Sidebar    from './components/Sidebar';
 
 ReactDOM.render(<Sidebar/>, document.querySelector('.sidebar-container'));
 ReactDOM.render(<SpaceScene/>, document.querySelector('.scene-container'));
@@ -32,7 +30,7 @@ scene.onmousedown = hideDrawer;
 scene.addEventListener('enter-vr', hideBurger, false);
 scene.addEventListener('exit-vr', showBurger, false);
 
-
 xButton.onmousedown = hideDrawer;
 xButton.onmouseover = () => { xButton.src = 'assets/x-icon-white.png' };
-xButton.onmouseout = () => { xButton.src = 'assets/x-icon-grey.png' };
+xButton.onmouseout  = () => { xButton.src = 'assets/x-icon-grey.png' };
+
