@@ -10,10 +10,17 @@ AFRAME.registerComponent('proxy-controls', ProxyControls);
 const SpaceScene = () => (
   <a-scene proxy-controls="debug: true">
     <a-assets>
+<<<<<<< HEAD
       <img id="outer-space" src='assets/spaceSky.jpg' />
       <sound id="ping" src='assets/ping.wav' />
       <a-asset-item id="datBoi"src="assets/datboi/dat-boi.dae" />
       <a-asset-item id="datUnicycle" src="assets/datboi/dat-unicycle.dae" />
+=======
+      <a-asset-item id="datBoi"src="assets/datboi/datBoi-body.obj"></a-asset-item>
+      <a-asset-item id="datWheel" src="assets/datboi/datBoi-wheel.obj"></a-asset-item>
+      <a-asset-item id="datFrame" src="assets/datboi/datBoi-frame.obj"></a-asset-item>
+      <img id="outer-space" src="./assets/spaceSky.jpg" />
+>>>>>>> adds color to datBoi with obj models
     </a-assets>
     {dancerData.map((dancer, index) => (
         <Dancer
