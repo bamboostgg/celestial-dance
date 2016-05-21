@@ -30,7 +30,7 @@ const Dancer = (props) => {
     );
   } else {
     return (
-      <a-entity 
+      <a-entity
         radius={massToRadius(props.mass)}
         class='dancer'
         mass={props.mass}
