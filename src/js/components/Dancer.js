@@ -25,6 +25,7 @@ const Dancer = (props) => {
         velocity={props.velocity.join(' ')}
         position={props.position.join(' ')}
         light={props.light}
+        rotation={props.rotation.join(' ')}
       />
     );
   } else {

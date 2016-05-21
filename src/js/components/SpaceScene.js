@@ -31,6 +31,7 @@ const SpaceScene = () => (
           sun={dancer.sun}
           light={dancer.light} 
           material={dancer.material}
+          rotation={dancer.rotation}
         />
       )
     )}

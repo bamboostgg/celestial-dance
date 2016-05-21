@@ -5,7 +5,7 @@ import { makeDancer, makeRandDancer, makeOrbitalDancer,
 } from './MakeDancers';
 
 // Random orbitals
-const sun = makeDancer(10000, [0, 0, -25], [0, 0, 0],
+const sun = makeDancer(10000, [0, 0, -25], [0, 0, 0], [0, 0, 0],
   "color: #FFF; distance: 5000; intensity: 2; type: point",
   "color: #FFF; metalness: 0.8; side: back"
 );
