@@ -7,9 +7,9 @@
 //      });
 //    });
 
-import React from 'react';
-import Dancer from './Dancer';
-import dancerData from '../Helpers/dancerData';
+import React            from 'react';
+import Dancer           from './Dancer';
+import dancerData       from '../Helpers/dancerData';
 import { massToRadius } from '../Helpers/Helpers';
 const space = require('./spaceSky.jpg');
 

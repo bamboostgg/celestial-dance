@@ -1,6 +1,6 @@
-import React from 'react';
-import Dancer from './Dancer';
-import dancerData from '../Helpers/dancerData';
+import React            from 'react';
+import Dancer           from './Dancer';
+import dancerData       from '../Helpers/dancerData';
 import { massToRadius } from '../Helpers/Helpers';
 var KeyboardControls = require('aframe-keyboard-controls');
 var ProxyControls = require('aframe-proxy-controls');
@@ -12,6 +12,12 @@ const SpaceScene = () => (
     <a-assets>
       <img id="outer-space" src='assets/spaceSky.jpg' />
       <sound id="ping" src='assets/ping.wav' />
+      <a-asset-item id="datBoi"
+        src="./assets/datboi/dat-boi.dae"
+      />
+      <a-asset-item id="datUnicycle"
+        src="./assets/datboi/dat-unicycle.dae"
+      />
     </a-assets>
     {dancerData.map((dancer, index) => (
         <Dancer

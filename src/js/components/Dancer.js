@@ -11,7 +11,7 @@ import {
 
 const lightDecay = 0.5;
 
-const range = (n) => Array.from( { length: n } ,( _ ,i) => i);
+const range = (n) => Array.from( {length: n} ,( _ , i) => i);
 
 const Dancer = (props) => {
   if (!props.sun) {
