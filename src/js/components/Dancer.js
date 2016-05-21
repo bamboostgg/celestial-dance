@@ -1,21 +1,25 @@
-import React from 'react';
-import { translate, rand, vLog, objToArr,
-  massToRadius } from '../Helpers/Helpers';
+import React           from 'react';
+import Nothing         from '../Simulation/Step'
 import { getNetAccel } from '../Helpers/AccelerationLogic';
-import Nothing from '../Simulation/Step'
+import { 
+  translate, 
+  rand, 
+  vLog, 
+  objToArr,
+  massToRadius 
+}                      from '../Helpers/Helpers';
+
 const lightDecay = 0.5;
 
-function range(n) {
-  let result = [];
-  while (result.length < n) {result.push(result.length)}
-  return result;
-}
+const range = (n) => Array.from( { length: n } ,( _ ,i) => i);
 
 const Dancer = (props) => {
   if (!props.sun) {
     return (
-      <a-sphere radius={massToRadius(props.mass)}
-        class='dancer' mass={props.mass}
+      <a-sphere 
+        radius={massToRadius(props.mass)}
+        class='dancer' 
+        mass={props.mass}
         step
         velocity={props.velocity.join(' ')}
         position={props.position.join(' ')}
@@ -26,14 +30,16 @@ const Dancer = (props) => {
     );
   } else {
     return (
-      <a-entity radius={massToRadius(props.mass)}
+      <a-entity 
+        radius={massToRadius(props.mass)}
         class='dancer'
         mass={props.mass}
         step
         velocity={props.velocity.join(' ')}
         position={props.position.join(' ')}
       >
-        <a-sphere radius={massToRadius(props.mass)}
+        <a-sphere 
+          radius={massToRadius(props.mass)}
           light={props.light}
           color={props.color}
           material={props.material}

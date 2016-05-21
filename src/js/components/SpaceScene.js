@@ -14,9 +14,14 @@ const SpaceScene = () => (
       <sound id="ping" src='assets/ping.wav' />
     </a-assets>
     {dancerData.map((dancer, index) => (
-        <Dancer key={index} mass={dancer.mass} position={dancer.position}
-           velocity={dancer.velocity} sun={dancer.sun}
-           light={dancer.light} material={dancer.material}
+        <Dancer
+          key={index}
+          mass={dancer.mass}
+          position={dancer.position}
+          velocity={dancer.velocity}
+          sun={dancer.sun}
+          light={dancer.light} 
+          material={dancer.material}
         />
       )
     )}
@@ -24,10 +29,13 @@ const SpaceScene = () => (
       camera
       look-controls
       keyboard-controls="acceleration: 400; fly: true; easing: 5"
-      id="player"
+      id="player" 
       position="0 1.8 0"
     />
-    <a-sky src="#outer-space" material="shader: flat"/>
+    <a-sky 
+      src="#outer-space"
+      material="shader: flat"
+    />
     <a-entity light="type: ambient; color: #555"></a-entity>
   </a-scene>
 );
