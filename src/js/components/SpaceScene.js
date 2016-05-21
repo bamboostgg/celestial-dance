@@ -12,12 +12,8 @@ const SpaceScene = () => (
     <a-assets>
       <img id="outer-space" src='assets/spaceSky.jpg' />
       <sound id="ping" src='assets/ping.wav' />
-      <a-asset-item id="datBoi"
-        src="./assets/datboi/dat-boi.dae"
-      />
-      <a-asset-item id="datUnicycle"
-        src="./assets/datboi/dat-unicycle.dae"
-      />
+      <a-asset-item id="datBoi"src="assets/datboi/dat-boi.dae" />
+      <a-asset-item id="datUnicycle" src="assets/datboi/dat-unicycle.dae" />
     </a-assets>
     {dancerData.map((dancer, index) => (
         <Dancer

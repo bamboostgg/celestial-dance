@@ -15,17 +15,17 @@ const DatBoi = (props) => (
       src="#datBoi" 
       material={props.material}
       color={props.color}
-    ></a-obj-model>
+    />
     <a-obj-model
       src="#datWheel"
       material="color: black; shader:flat"
       color="#000000"
-    ></a-obj-model>
+    />
     <a-obj-model
       src="#datFrame"
       material="color: orange"
       color="#ffa500"
-    ></a-obj-model>
+    />
   </a-entity>
 )
 

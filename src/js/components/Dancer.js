@@ -8,6 +8,7 @@ import {
   objToArr,
   massToRadius 
 }                      from '../Helpers/Helpers';
+import DatBoi          from './DatBoi';
 
 const lightDecay = 0.5;
 
@@ -16,7 +17,7 @@ const range = (n) => Array.from( {length: n} ,( _ , i) => i);
 const Dancer = (props) => {
   if (!props.sun) {
     return (
-      <a-sphere 
+      <DatBoi
         radius={massToRadius(props.mass)}
         class='dancer' 
         mass={props.mass}
@@ -24,8 +25,6 @@ const Dancer = (props) => {
         velocity={props.velocity.join(' ')}
         position={props.position.join(' ')}
         light={props.light}
-        color={props.color}
-        material={props.material}
       />
     );
   } else {
