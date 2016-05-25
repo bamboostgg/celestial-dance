@@ -18,29 +18,25 @@ const Sidebar = () => (
         <p>Press the VR button in the bottom right to enter VR mode with
           <a href="http://tinyurl.com/jegsfu9"> google cardboard </a>
         </p>
-        <p>Enter your pair-code at <a href="https://proxy-controls.donmccurdy.com/#/connect#%2Fconnect"> pair.elliotplant.com</a> (optional)</p>
+      </div>
+      <div>
+        <h3>Revised by Edison Huff</h3>
+        <p><a href="https://elliotplant.wordpress.com/">Blog</a></p>
+        <p><a href="http://linkedin.com/in/edisonhuff/">LinkedIn</a></p>
+        <p><a href="https://github.com/bamboostgg">Github</a></p>
+      </div>
+      <div>
+        <h3>Original by Elliot Plant</h3>
+        <p><a href="http://www.elliotplant.com/">Original</a></p>
+        <p><a href="https://elliotplant.wordpress.com/">Blog</a></p>
+        <p><a href="https://github.com/elliotaplant">Github</a></p>
       </div>
 
-      <footer>
-        <div>
-          <h3>Original by Elliot Plant</h3>
-          <p><a href="http://www.elliotplant.com/">Original</a></p>
-          <p><a href="https://elliotplant.wordpress.com/">Blog</a></p>
-          <p><a href="https://github.com/elliotaplant">Github</a></p>
-        </div>
-        <div>
-          <h3>Revised by Edison Huff</h3>
-          <p><a href="https://elliotplant.wordpress.com/">Blog</a></p>
-          <p><a href="http://linkedin.com/in/edisonhuff/">LinkedIn</a></p>
-          <p><a href="https://github.com/bamboostgg">Github</a></p>
-        </div>
-
-        <div>
-          <h3>Currently a work in Progress</h3>
-          <p><a href="https://github.com/elliotaplant/celestial-dance">Project Github</a></p>
-          <p><a href="aframe.io">Framework by A-Frame</a></p>
-        </div>
-      </footer>
+      <div>
+        <h3>Currently a work in Progress</h3>
+        <p><a href="https://github.com/bamboostgg/o-shi-waddup">Project Github</a></p>
+        <p><a href="aframe.io">Framework by A-Frame</a></p>
+      </div>
     </div>
   </div>
 );

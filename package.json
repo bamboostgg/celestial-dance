@@ -6,7 +6,7 @@
   "dependencies": {
     "aframe": "^0.2.0",
     "aframe-extras": "^1.15.1",
-    "aframe-keyboard-controls": "git://github.com/elliotaplant/aframe-keyboard-controls.git#master",
+    "aframe-keyboard-controls": "^0",
     "aframe-proxy-controls": "^0.6.0",
     "babel-polyfill": "^6.3.14",
     "express": "^4.13.4",
