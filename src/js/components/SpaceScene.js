@@ -8,7 +8,9 @@ AFRAME.registerComponent('keyboard-controls', KeyboardControls);
 AFRAME.registerComponent('proxy-controls', ProxyControls);
 
 const SpaceScene = () => (
-  <a-scene proxy-controls="debug: true">
+  <a-scene 
+    proxy-controls="debug: true"
+  >
     <a-assets>
       <img id="outer-space" src='assets/spaceSky.jpg' />
       <sound id="ping" src='assets/ping.wav' />
@@ -40,7 +42,7 @@ const SpaceScene = () => (
       src="#outer-space"
       material="shader: flat"
     />
-    <a-entity light="type: ambient; color: #555"></a-entity>
+    <a-entity light="type: ambient; color: #555" />
   </a-scene>
 );
 
