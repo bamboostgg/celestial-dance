@@ -30,19 +30,10 @@ const makeOrbitalDancer = (dancer, plane, sign) => {
   const rotation = [0, 0, 0];
   position[planeToPosition[plane]] += sign * orbitRadius;
   velocity[planeToVelocity[plane]] = speed;
-  rotation[planeToVelocity[plane]] = rand(-180, 180);
+  rotation[planeToRotation[plane]] = rand(-180, 180);
   return makeDancer(mass, position, velocity, rotation, null, "color: "+randColor()+"; metalness: 0.4");
 }
 
-class DancerData {
-  constructor(mass, position, velocity, rotation, color) {
-      this.mass = mass;
-      this.position = position;
-      this.velocity = velocity;
-      this.rotation = rotation;
-      this.color = color;
-  }
-}
 
 const sqrt = Math.sqrt;
 const pow = Math.pow;
